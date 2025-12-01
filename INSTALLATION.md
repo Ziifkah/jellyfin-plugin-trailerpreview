@@ -16,7 +16,7 @@ This guide will help you install the Trailer Preview plugin on your Jellyfin ser
 3. Click the **+** button to add a repository
 4. Enter the following information:
    - **Repository Name**: `Trailer Preview`
-   - **Repository URL**: `https://raw.githubusercontent.com/YOUR_USERNAME/jellyfin-plugin-trailerpreview/main/manifest.json`
+   - **Repository URL**: `https://raw.githubusercontent.com/Ziifkah/jellyfin-plugin-trailerpreview/main/manifest.json`
 5. Click **Save**
 
 ### Step 2: Install Plugin
