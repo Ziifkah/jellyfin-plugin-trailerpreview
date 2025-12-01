@@ -1,0 +1,58 @@
+name: Build Plugin
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ created ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore Jellyfin.Plugin.TrailerPreview.sln
+
+    - name: Build
+      run: dotnet build Jellyfin.Plugin.TrailerPreview.sln --configuration Release --no-restore
+
+    - name: Create artifact directory
+      run: mkdir -p artifacts
+
+    - name: Copy build artifacts
+      run: |
+        cp Jellyfin.Plugin.TrailerPreview/bin/Release/net8.0/Jellyfin.Plugin.TrailerPreview.dll artifacts/
+        cp manifest.json artifacts/
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: jellyfin-plugin-trailerpreview
+        path: artifacts/
+
+    - name: Create release zip
+      if: github.event_name == 'release'
+      run: |
+        cd artifacts
+        zip -r ../jellyfin-plugin-trailerpreview_${{ github.event.release.tag_name }}.zip .
+
+    - name: Upload release asset
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./jellyfin-plugin-trailerpreview_${{ github.event.release.tag_name }}.zip
+        asset_name: jellyfin-plugin-trailerpreview_${{ github.event.release.tag_name }}.zip
+        asset_content_type: application/zip

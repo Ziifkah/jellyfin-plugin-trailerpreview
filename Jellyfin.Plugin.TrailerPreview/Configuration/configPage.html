@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Trailer Preview</title>
+</head>
+<body>
+    <div id="TrailerPreviewConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="TrailerPreviewConfigForm">
+
+                    <h2>Trailer Preview Configuration</h2>
+                    <p>Configure how trailer previews appear when hovering over movies and TV shows.</p>
+
+                    <!-- General Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">General Settings</h3>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableTrailerPreview" />
+                                <span>Enable Trailer Preview</span>
+                            </label>
+                            <div class="fieldDescription">Enable or disable the trailer preview feature</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableDebugLogging" />
+                                <span>Enable Debug Logging</span>
+                            </label>
+                            <div class="fieldDescription">Show debug messages in browser console</div>
+                        </div>
+                    </div>
+
+                    <!-- Timing Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Timing Settings</h3>
+
+                        <div class="inputContainer">
+                            <label for="hoverDelayMs">Hover Delay (ms):</label>
+                            <input type="number" is="emby-input" id="hoverDelayMs" min="0" max="5000" step="100" />
+                            <div class="fieldDescription">Time to wait before showing preview after hovering</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="previewDurationMs">Preview Duration (ms):</label>
+                            <input type="number" is="emby-input" id="previewDurationMs" min="5000" max="120000" step="1000" />
+                            <div class="fieldDescription">How long to show the preview (0 = no limit)</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="fadeInDurationMs">Fade In Duration (ms):</label>
+                            <input type="number" is="emby-input" id="fadeInDurationMs" min="0" max="2000" step="50" />
+                            <div class="fieldDescription">Animation time when preview appears</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="fadeOutDurationMs">Fade Out Duration (ms):</label>
+                            <input type="number" is="emby-input" id="fadeOutDurationMs" min="0" max="2000" step="50" />
+                            <div class="fieldDescription">Animation time when preview disappears</div>
+                        </div>
+                    </div>
+
+                    <!-- Position Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Position Settings</h3>
+
+                        <div class="selectContainer">
+                            <label for="positionMode">Position Mode:</label>
+                            <select is="emby-select" id="positionMode">
+                                <option value="Center">Center</option>
+                                <option value="Custom">Custom</option>
+                            </select>
+                            <div class="fieldDescription">How to position the preview on screen</div>
+                        </div>
+
+                        <div id="customPositionSettings" style="display: none;">
+                            <div class="inputContainer">
+                                <label for="offsetX">Horizontal Offset (px):</label>
+                                <input type="number" is="emby-input" id="offsetX" min="-1000" max="1000" step="10" />
+                            </div>
+
+                            <div class="inputContainer">
+                                <label for="offsetY">Vertical Offset (px):</label>
+                                <input type="number" is="emby-input" id="offsetY" min="-1000" max="1000" step="10" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Size Settings</h3>
+
+                        <div class="selectContainer">
+                            <label for="sizeMode">Size Mode:</label>
+                            <select is="emby-select" id="sizeMode">
+                                <option value="Percentage">Percentage of Screen</option>
+                                <option value="Manual">Manual (pixels)</option>
+                            </select>
+                        </div>
+
+                        <div id="percentageSizeSettings">
+                            <div class="inputContainer">
+                                <label for="previewSizePercentage">Preview Size (%):</label>
+                                <input type="number" is="emby-input" id="previewSizePercentage" min="20" max="100" step="5" />
+                                <div class="fieldDescription">Percentage of viewport width</div>
+                            </div>
+                        </div>
+
+                        <div id="manualSizeSettings" style="display: none;">
+                            <div class="inputContainer">
+                                <label for="previewWidth">Width (px):</label>
+                                <input type="number" is="emby-input" id="previewWidth" min="200" max="2000" step="10" />
+                            </div>
+
+                            <div class="inputContainer">
+                                <label for="previewHeight">Height (px):</label>
+                                <input type="number" is="emby-input" id="previewHeight" min="150" max="1500" step="10" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Visual Settings</h3>
+
+                        <div class="inputContainer">
+                            <label for="previewOpacity">Preview Opacity:</label>
+                            <input type="number" is="emby-input" id="previewOpacity" min="0.1" max="1.0" step="0.05" />
+                            <div class="fieldDescription">Transparency of the preview (0.0 - 1.0)</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="previewBorderRadius">Border Radius (px):</label>
+                            <input type="number" is="emby-input" id="previewBorderRadius" min="0" max="50" step="1" />
+                            <div class="fieldDescription">Roundness of preview corners</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableBackgroundBlur" />
+                                <span>Enable Background Blur</span>
+                            </label>
+                            <div class="fieldDescription">Apply blur effect to background</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableBackgroundDim" />
+                                <span>Enable Background Dim</span>
+                            </label>
+                            <div class="fieldDescription">Darken the background behind preview</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="backgroundDimOpacity">Background Dim Opacity:</label>
+                            <input type="number" is="emby-input" id="backgroundDimOpacity" min="0.0" max="1.0" step="0.05" />
+                            <div class="fieldDescription">How dark to make the background (0.0 - 1.0)</div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Audio Settings</h3>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableAudio" />
+                                <span>Enable Audio</span>
+                            </label>
+                            <div class="fieldDescription">Allow audio playback in previews</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="muteByDefault" />
+                                <span>Mute by Default</span>
+                            </label>
+                            <div class="fieldDescription">Start previews muted</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="volume">Default Volume (%):</label>
+                            <input type="number" is="emby-input" id="volume" min="0" max="100" step="5" />
+                            <div class="fieldDescription">Default volume level when unmuted</div>
+                        </div>
+                    </div>
+
+                    <!-- Video Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Video Settings</h3>
+
+                        <div class="selectContainer">
+                            <label for="videoQuality">YouTube Video Quality:</label>
+                            <select is="emby-select" id="videoQuality">
+                                <option value="hd480">480p</option>
+                                <option value="hd720">720p (recommended)</option>
+                                <option value="hd1080">1080p</option>
+                            </select>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="autoPlayTrailer" />
+                                <span>Auto-play Trailers</span>
+                            </label>
+                            <div class="fieldDescription">Start playing trailer automatically</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="loopTrailer" />
+                                <span>Loop Trailers</span>
+                            </label>
+                            <div class="fieldDescription">Replay trailer when it ends</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="preloadTrailers" />
+                                <span>Preload Trailers</span>
+                            </label>
+                            <div class="fieldDescription">Load trailers in advance for faster playback</div>
+                        </div>
+                    </div>
+
+                    <!-- UI Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">UI Settings</h3>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="showProgressBar" />
+                                <span>Show Progress Bar</span>
+                            </label>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="showCloseButton" />
+                                <span>Show Close Button</span>
+                            </label>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="showMuteButton" />
+                                <span>Show Mute Button</span>
+                            </label>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="showTitle" />
+                                <span>Show Trailer Title</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Platform Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Platform Settings</h3>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnWeb" />
+                                <span>Enable on Web Client</span>
+                            </label>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnDesktop" />
+                                <span>Enable on Desktop Client</span>
+                            </label>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnMobile" />
+                                <span>Enable on Mobile</span>
+                            </label>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnTV" />
+                                <span>Enable on TV Client</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Advanced Settings</h3>
+
+                        <div class="inputContainer">
+                            <label for="maxConcurrentPreviews">Max Concurrent Previews:</label>
+                            <input type="number" is="emby-input" id="maxConcurrentPreviews" min="1" max="5" step="1" />
+                            <div class="fieldDescription">Maximum number of previews that can play at once</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="disableOnLowBandwidth" />
+                                <span>Disable on Low Bandwidth</span>
+                            </label>
+                            <div class="fieldDescription">Automatically disable on slow connections</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var TrailerPreviewConfig = {
+            pluginUniqueId: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
+        };
+
+        document.getElementById('TrailerPreviewConfigPage').addEventListener('pageshow', function() {
+            Dashboard.showLoadingMsg();
+            ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function(config) {
+                // General
+                document.getElementById('enableTrailerPreview').checked = config.EnableTrailerPreview;
+                document.getElementById('enableDebugLogging').checked = config.EnableDebugLogging;
+
+                // Timing
+                document.getElementById('hoverDelayMs').value = config.HoverDelayMs;
+                document.getElementById('previewDurationMs').value = config.PreviewDurationMs;
+                document.getElementById('fadeInDurationMs').value = config.FadeInDurationMs;
+                document.getElementById('fadeOutDurationMs').value = config.FadeOutDurationMs;
+
+                // Position
+                document.getElementById('positionMode').value = config.PositionMode;
+                document.getElementById('offsetX').value = config.OffsetX;
+                document.getElementById('offsetY').value = config.OffsetY;
+
+                // Size
+                document.getElementById('sizeMode').value = config.SizeMode;
+                document.getElementById('previewWidth').value = config.PreviewWidth;
+                document.getElementById('previewHeight').value = config.PreviewHeight;
+                document.getElementById('previewSizePercentage').value = config.PreviewSizePercentage;
+
+                // Visual
+                document.getElementById('previewOpacity').value = config.PreviewOpacity;
+                document.getElementById('previewBorderRadius').value = config.PreviewBorderRadius;
+                document.getElementById('enableBackgroundBlur').checked = config.EnableBackgroundBlur;
+                document.getElementById('enableBackgroundDim').checked = config.EnableBackgroundDim;
+                document.getElementById('backgroundDimOpacity').value = config.BackgroundDimOpacity;
+
+                // Audio
+                document.getElementById('enableAudio').checked = config.EnableAudio;
+                document.getElementById('muteByDefault').checked = config.MuteByDefault;
+                document.getElementById('volume').value = config.Volume;
+
+                // Video
+                document.getElementById('videoQuality').value = config.VideoQuality;
+                document.getElementById('autoPlayTrailer').checked = config.AutoPlayTrailer;
+                document.getElementById('loopTrailer').checked = config.LoopTrailer;
+                document.getElementById('preloadTrailers').checked = config.PreloadTrailers;
+
+                // UI
+                document.getElementById('showProgressBar').checked = config.ShowProgressBar;
+                document.getElementById('showCloseButton').checked = config.ShowCloseButton;
+                document.getElementById('showMuteButton').checked = config.ShowMuteButton;
+                document.getElementById('showTitle').checked = config.ShowTitle;
+
+                // Platform
+                document.getElementById('enableOnWeb').checked = config.EnableOnWeb;
+                document.getElementById('enableOnDesktop').checked = config.EnableOnDesktop;
+                document.getElementById('enableOnMobile').checked = config.EnableOnMobile;
+                document.getElementById('enableOnTV').checked = config.EnableOnTV;
+
+                // Advanced
+                document.getElementById('maxConcurrentPreviews').value = config.MaxConcurrentPreviews;
+                document.getElementById('disableOnLowBandwidth').checked = config.DisableOnLowBandwidth;
+
+                updateFieldVisibility();
+                Dashboard.hideLoadingMsg();
+            });
+        });
+
+        document.getElementById('positionMode').addEventListener('change', updateFieldVisibility);
+        document.getElementById('sizeMode').addEventListener('change', updateFieldVisibility);
+
+        function updateFieldVisibility() {
+            var positionMode = document.getElementById('positionMode').value;
+            var sizeMode = document.getElementById('sizeMode').value;
+
+            document.getElementById('customPositionSettings').style.display =
+                positionMode === 'Custom' ? 'block' : 'none';
+
+            document.getElementById('manualSizeSettings').style.display =
+                sizeMode === 'Manual' ? 'block' : 'none';
+            document.getElementById('percentageSizeSettings').style.display =
+                sizeMode === 'Percentage' ? 'block' : 'none';
+        }
+
+        document.getElementById('TrailerPreviewConfigForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            Dashboard.showLoadingMsg();
+
+            ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function(config) {
+                // General
+                config.EnableTrailerPreview = document.getElementById('enableTrailerPreview').checked;
+                config.EnableDebugLogging = document.getElementById('enableDebugLogging').checked;
+
+                // Timing
+                config.HoverDelayMs = parseInt(document.getElementById('hoverDelayMs').value);
+                config.PreviewDurationMs = parseInt(document.getElementById('previewDurationMs').value);
+                config.FadeInDurationMs = parseInt(document.getElementById('fadeInDurationMs').value);
+                config.FadeOutDurationMs = parseInt(document.getElementById('fadeOutDurationMs').value);
+
+                // Position
+                config.PositionMode = document.getElementById('positionMode').value;
+                config.OffsetX = parseInt(document.getElementById('offsetX').value);
+                config.OffsetY = parseInt(document.getElementById('offsetY').value);
+
+                // Size
+                config.SizeMode = document.getElementById('sizeMode').value;
+                config.PreviewWidth = parseInt(document.getElementById('previewWidth').value);
+                config.PreviewHeight = parseInt(document.getElementById('previewHeight').value);
+                config.PreviewSizePercentage = parseInt(document.getElementById('previewSizePercentage').value);
+
+                // Visual
+                config.PreviewOpacity = parseFloat(document.getElementById('previewOpacity').value);
+                config.PreviewBorderRadius = parseInt(document.getElementById('previewBorderRadius').value);
+                config.EnableBackgroundBlur = document.getElementById('enableBackgroundBlur').checked;
+                config.EnableBackgroundDim = document.getElementById('enableBackgroundDim').checked;
+                config.BackgroundDimOpacity = parseFloat(document.getElementById('backgroundDimOpacity').value);
+
+                // Audio
+                config.EnableAudio = document.getElementById('enableAudio').checked;
+                config.MuteByDefault = document.getElementById('muteByDefault').checked;
+                config.Volume = parseInt(document.getElementById('volume').value);
+
+                // Video
+                config.VideoQuality = document.getElementById('videoQuality').value;
+                config.AutoPlayTrailer = document.getElementById('autoPlayTrailer').checked;
+                config.LoopTrailer = document.getElementById('loopTrailer').checked;
+                config.PreloadTrailers = document.getElementById('preloadTrailers').checked;
+
+                // UI
+                config.ShowProgressBar = document.getElementById('showProgressBar').checked;
+                config.ShowCloseButton = document.getElementById('showCloseButton').checked;
+                config.ShowMuteButton = document.getElementById('showMuteButton').checked;
+                config.ShowTitle = document.getElementById('showTitle').checked;
+
+                // Platform
+                config.EnableOnWeb = document.getElementById('enableOnWeb').checked;
+                config.EnableOnDesktop = document.getElementById('enableOnDesktop').checked;
+                config.EnableOnMobile = document.getElementById('enableOnMobile').checked;
+                config.EnableOnTV = document.getElementById('enableOnTV').checked;
+
+                // Advanced
+                config.MaxConcurrentPreviews = parseInt(document.getElementById('maxConcurrentPreviews').value);
+                config.DisableOnLowBandwidth = document.getElementById('disableOnLowBandwidth').checked;
+
+                ApiClient.updatePluginConfiguration(TrailerPreviewConfig.pluginUniqueId, config).then(function() {
+                    Dashboard.processPluginConfigurationUpdateResult();
+                });
+            });
+
+            return false;
+        });
+    </script>
+</body>
+</html>
