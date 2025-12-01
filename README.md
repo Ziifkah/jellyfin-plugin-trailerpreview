@@ -37,7 +37,7 @@ A modern, Netflix-style trailer preview plugin for Jellyfin that displays movie 
 3. Click the **+** button to add a new repository
 4. Enter the following information:
    - **Repository Name**: `Trailer Preview`
-   - **Repository URL**: `https://raw.githubusercontent.com/YOUR_USERNAME/jellyfin-plugin-trailerpreview/main/manifest.json`
+   - **Repository URL**: `https://raw.githubusercontent.com/Ziifkah/jellyfin-plugin-trailerpreview/main/manifest.json`
 5. Click **Save**
 
 ### 2. Install Plugin
