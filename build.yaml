@@ -15,4 +15,4 @@ artifacts:
   - Jellyfin.Plugin.TrailerPreview.dll
 build_type: dotnet
 dotnet_configuration: Release
-dotnet_framework: net9.0
+dotnet_framework: net8.0
