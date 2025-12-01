@@ -322,13 +322,22 @@
     </div>
 
     <script type="text/javascript">
-        var TrailerPreviewConfig = {
-            pluginUniqueId: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
-        };
+        (function() {
+            var pluginUniqueId = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890';
 
-        document.getElementById('TrailerPreviewConfigPage').addEventListener('pageshow', function() {
-            Dashboard.showLoadingMsg();
-            ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function(config) {
+            console.log('[TrailerPreview Config] Script loaded');
+
+            function loadConfiguration() {
+                console.log('[TrailerPreview Config] Loading configuration...');
+                try {
+                    Dashboard.showLoadingMsg();
+                } catch (e) {
+                    console.error('[TrailerPreview Config] Dashboard.showLoadingMsg failed:', e);
+                }
+
+                ApiClient.getPluginConfiguration(pluginUniqueId).then(function(config) {
+                    console.log('[TrailerPreview Config] Configuration loaded:', config);
+                    try {
                 // General
                 document.getElementById('enableTrailerPreview').checked = config.EnableTrailerPreview;
                 document.getElementById('enableDebugLogging').checked = config.EnableDebugLogging;
@@ -384,13 +393,29 @@
                 document.getElementById('maxConcurrentPreviews').value = config.MaxConcurrentPreviews;
                 document.getElementById('disableOnLowBandwidth').checked = config.DisableOnLowBandwidth;
 
-                updateFieldVisibility();
-                Dashboard.hideLoadingMsg();
-            });
-        });
+                        updateFieldVisibility();
+                        console.log('[TrailerPreview Config] Fields populated successfully');
+                    } catch (e) {
+                        console.error('[TrailerPreview Config] Error populating fields:', e);
+                    }
 
-        document.getElementById('positionMode').addEventListener('change', updateFieldVisibility);
-        document.getElementById('sizeMode').addEventListener('change', updateFieldVisibility);
+                    try {
+                        Dashboard.hideLoadingMsg();
+                    } catch (e) {
+                        console.error('[TrailerPreview Config] Dashboard.hideLoadingMsg failed:', e);
+                    }
+                }).catch(function(error) {
+                    console.error('[TrailerPreview Config] Failed to load configuration:', error);
+                    try {
+                        Dashboard.hideLoadingMsg();
+                    } catch (e) {}
+                });
+            }
+
+            document.getElementById('TrailerPreviewConfigPage').addEventListener('pageshow', loadConfiguration);
+
+            document.getElementById('positionMode').addEventListener('change', updateFieldVisibility);
+            document.getElementById('sizeMode').addEventListener('change', updateFieldVisibility);
 
         function updateFieldVisibility() {
             var positionMode = document.getElementById('positionMode').value;
@@ -405,11 +430,19 @@
                 sizeMode === 'Percentage' ? 'block' : 'none';
         }
 
-        document.getElementById('TrailerPreviewConfigForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            Dashboard.showLoadingMsg();
+            document.getElementById('TrailerPreviewConfigForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('[TrailerPreview Config] Saving configuration...');
 
-            ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function(config) {
+                try {
+                    Dashboard.showLoadingMsg();
+                } catch (ex) {
+                    console.error('[TrailerPreview Config] Dashboard.showLoadingMsg failed:', ex);
+                }
+
+                ApiClient.getPluginConfiguration(pluginUniqueId).then(function(config) {
+                    console.log('[TrailerPreview Config] Got config for save:', config);
+                    try {
                 // General
                 config.EnableTrailerPreview = document.getElementById('enableTrailerPreview').checked;
                 config.EnableDebugLogging = document.getElementById('enableDebugLogging').checked;
@@ -465,13 +498,31 @@
                 config.MaxConcurrentPreviews = parseInt(document.getElementById('maxConcurrentPreviews').value);
                 config.DisableOnLowBandwidth = document.getElementById('disableOnLowBandwidth').checked;
 
-                ApiClient.updatePluginConfiguration(TrailerPreviewConfig.pluginUniqueId, config).then(function() {
-                    Dashboard.processPluginConfigurationUpdateResult();
+                        ApiClient.updatePluginConfiguration(pluginUniqueId, config).then(function() {
+                            console.log('[TrailerPreview Config] Configuration saved successfully');
+                            Dashboard.processPluginConfigurationUpdateResult();
+                        }).catch(function(error) {
+                            console.error('[TrailerPreview Config] Failed to save configuration:', error);
+                            try {
+                                Dashboard.hideLoadingMsg();
+                            } catch (e) {}
+                        });
+                    } catch (e) {
+                        console.error('[TrailerPreview Config] Error preparing config for save:', e);
+                        try {
+                            Dashboard.hideLoadingMsg();
+                        } catch (ex) {}
+                    }
+                }).catch(function(error) {
+                    console.error('[TrailerPreview Config] Failed to get configuration for save:', error);
+                    try {
+                        Dashboard.hideLoadingMsg();
+                    } catch (e) {}
                 });
-            });
 
-            return false;
-        });
+                return false;
+            });
+        })();
     </script>
 </body>
 </html>
