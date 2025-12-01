@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Jellyfin.Plugin.TrailerPreview.Configuration;
@@ -38,11 +39,11 @@ public static class ScriptBuilder
         previewWidth: {config.PreviewWidth},
         previewHeight: {config.PreviewHeight},
         previewSizePercentage: {config.PreviewSizePercentage},
-        previewOpacity: {config.PreviewOpacity},
+        previewOpacity: {config.PreviewOpacity.ToString(CultureInfo.InvariantCulture)},
         previewBorderRadius: {config.PreviewBorderRadius},
         enableBackgroundBlur: {config.EnableBackgroundBlur.ToString().ToLower()},
         enableBackgroundDim: {config.EnableBackgroundDim.ToString().ToLower()},
-        backgroundDimOpacity: {config.BackgroundDimOpacity},
+        backgroundDimOpacity: {config.BackgroundDimOpacity.ToString(CultureInfo.InvariantCulture)},
         enableAudio: {config.EnableAudio.ToString().ToLower()},
         volume: {config.Volume},
         muteByDefault: {config.MuteByDefault.ToString().ToLower()},
