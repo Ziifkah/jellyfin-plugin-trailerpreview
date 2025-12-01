@@ -6,7 +6,7 @@ public class TrailerInfo
     public string? TrailerUrl { get; set; }
     public string TrailerType { get; set; } = "None";
     public string? Title { get; set; }
-    public int? RuntimeTicks { get; set; }
+    public long? RuntimeTicks { get; set; }
     public bool IsLocal { get; set; }
     public bool IsAvailable { get; set; }
 }

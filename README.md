@@ -2,8 +2,8 @@
 
 A modern, Netflix-style trailer preview plugin for Jellyfin that displays movie and TV show trailers when hovering over items.
 
-![License](https://img.shields.io/github/license/jellyfin/jellyfin-plugin-trailerpreview)
-![Release](https://img.shields.io/github/v/release/jellyfin/jellyfin-plugin-trailerpreview)
+![License](https://img.shields.io/github/license/Ziifkah/jellyfin-plugin-trailerpreview)
+![Release](https://img.shields.io/github/v/release/Ziifkah/jellyfin-plugin-trailerpreview)
 
 ## Features
 
@@ -37,7 +37,7 @@ A modern, Netflix-style trailer preview plugin for Jellyfin that displays movie 
 3. Click the **+** button to add a new repository
 4. Enter the following information:
    - **Repository Name**: `Trailer Preview`
-   - **Repository URL**: `https://raw.githubusercontent.com/YOUR_USERNAME/jellyfin-plugin-trailerpreview/main/manifest.json`
+   - **Repository URL**: `https://raw.githubusercontent.com/Ziifkah/jellyfin-plugin-trailerpreview/main/manifest.json`
 5. Click **Save**
 
 ### 2. Install Plugin
@@ -208,8 +208,8 @@ This plugin is licensed under the MIT License. See [LICENSE](LICENSE) for detail
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/YOUR_USERNAME/jellyfin-plugin-trailerpreview/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/YOUR_USERNAME/jellyfin-plugin-trailerpreview/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Ziifkah/jellyfin-plugin-trailerpreview/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Ziifkah/jellyfin-plugin-trailerpreview/discussions)
 - **Jellyfin Forum**: [Plugin Development](https://forum.jellyfin.org/f-plugin-development)
 
 ---

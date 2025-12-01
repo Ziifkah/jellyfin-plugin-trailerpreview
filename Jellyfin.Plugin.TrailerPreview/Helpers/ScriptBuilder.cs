@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using Jellyfin.Plugin.TrailerPreview.Configuration;
 
@@ -466,7 +467,7 @@ public static class ScriptBuilder
         const cards = element.querySelectorAll ? element.querySelectorAll(
             '.card:not([data-trailer-preview]), ' +
             '.itemTile:not([data-trailer-preview]), ' +
-            '[data-type=\"Card\"]:not([data-trailer-preview]), ' +
+            '[data-type=""Card""]:not([data-trailer-preview]), ' +
             '.listItem:not([data-trailer-preview])'
         ) : [];
 

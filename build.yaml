@@ -2,7 +2,7 @@
 name: jellyfin-plugin-trailerpreview
 guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 version: 1.0.0
-jellyfin_version: 10.8.0
+jellyfin_version: 10.11.0
 nicename: Trailer Preview
 description: Display movie and TV show trailers in a Netflix-style overlay when hovering over items
 overview: >
@@ -10,9 +10,9 @@ overview: >
   Features include customizable timing, positioning, size controls, background effects,
   audio settings, and multi-platform support for Web, Desktop, Mobile, and TV clients.
 category: General
-owner: jellyfin
+owner: Ziifkah
 artifacts:
   - Jellyfin.Plugin.TrailerPreview.dll
 build_type: dotnet
 dotnet_configuration: Release
-dotnet_framework: net8.0
+dotnet_framework: net9.0

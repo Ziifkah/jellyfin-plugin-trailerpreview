@@ -15,7 +15,7 @@ Thank you for your interest in contributing to the Jellyfin Trailer Preview plug
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/jellyfin-plugin-trailerpreview.git
+git clone https://github.com/Ziifkah/jellyfin-plugin-trailerpreview.git
 cd jellyfin-plugin-trailerpreview
 
 # Restore dependencies
