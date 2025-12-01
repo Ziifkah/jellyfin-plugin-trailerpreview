@@ -2,7 +2,7 @@
 name: jellyfin-plugin-trailerpreview
 guid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 version: 1.0.0
-jellyfin_version: 10.11.0
+jellyfin_version: 10.10.0
 nicename: Trailer Preview
 description: Display movie and TV show trailers in a Netflix-style overlay when hovering over items
 overview: >
