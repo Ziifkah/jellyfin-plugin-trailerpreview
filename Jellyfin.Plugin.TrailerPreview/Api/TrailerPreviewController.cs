@@ -70,6 +70,7 @@ public class TrailerPreviewController : ControllerBase
     }
 
     [HttpGet("Trailer/{itemId}")]
+    [AllowAnonymous]
     public ActionResult<object> GetTrailerInfo(Guid itemId)
     {
         try

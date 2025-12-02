@@ -9,11 +9,11 @@
     "versions": [
       {
         "version": "2.0.0",
-        "changelog": "Complete rewrite based on HoverTrailer architecture. Netflix-style overlay with comprehensive configuration options. Fixed JavaScript decimal formatting issues. Fixed configuration page structure. Fixed ClientScript authentication (AllowAnonymous). Improved stability and error handling.",
+        "changelog": "Complete rewrite based on HoverTrailer architecture. Netflix-style overlay with comprehensive configuration options. Fixed JavaScript decimal formatting issues. Fixed configuration page structure. Fixed all authentication issues (AllowAnonymous on ClientScript and Trailer endpoints). Improved stability and error handling.",
         "targetAbi": "10.10.0.0",
         "sourceUrl": "https://github.com/Ziifkah/jellyfin-plugin-trailerpreview/releases/download/v2.0.0/jellyfin-plugin-trailerpreview_2.0.0.zip",
-        "checksum": "ebcd863b0064b3a00e0bfd91cdc1ae74",
-        "timestamp": "2025-12-02T17:40:00Z"
+        "checksum": "a710023f29367ce974ba513e2bf5dcc7",
+        "timestamp": "2025-12-02T18:00:00Z"
       },
       {
         "version": "1.0.0",
