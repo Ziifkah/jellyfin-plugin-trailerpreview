@@ -12,7 +12,7 @@
         "changelog": "Complete rewrite based on HoverTrailer architecture. Netflix-style overlay with comprehensive configuration options. Fixed YouTube Error 153 (youtube-nocookie.com). Fixed video overlap and audio mixing bugs with proper cleanup. Fixed all authentication issues. Improved stability and error handling.",
         "targetAbi": "10.10.0.0",
         "sourceUrl": "https://github.com/Ziifkah/jellyfin-plugin-trailerpreview/releases/download/v2.0.0/jellyfin-plugin-trailerpreview_2.0.0.zip",
-        "checksum": "2f8e781bc4d628e34ae0d8b2e7402363",
+        "checksum": "a034bdb9fcae72c1854b1fc090d0a103",
         "timestamp": "2025-12-02T18:20:00Z"
       },
       {
