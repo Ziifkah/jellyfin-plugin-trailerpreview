@@ -4,7 +4,7 @@ This guide will help you install the Trailer Preview plugin on your Jellyfin ser
 
 ## Prerequisites
 
-- Jellyfin Server **10.8.0** or higher
+- Jellyfin Server **10.10.0** or higher
 - .NET 8.0 Runtime (usually included with Jellyfin)
 
 ## Installation
