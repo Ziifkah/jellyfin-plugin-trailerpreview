@@ -11,7 +11,7 @@
                 <form id="TrailerPreviewConfigForm">
 
                     <h2>Trailer Preview Configuration</h2>
-                    <p>Configure how trailer previews appear when hovering over movies and TV shows.</p>
+                    <p>Configure Netflix-style trailer previews when hovering over movies and TV shows.</p>
 
                     <!-- General Settings -->
                     <div class="verticalSection">
@@ -41,25 +41,141 @@
                         <div class="inputContainer">
                             <label for="hoverDelayMs">Hover Delay (ms):</label>
                             <input type="number" is="emby-input" id="hoverDelayMs" min="0" max="5000" step="100" />
-                            <div class="fieldDescription">Time to wait before showing preview after hovering</div>
+                            <div class="fieldDescription">Time to wait before showing preview after hovering (default: 800)</div>
                         </div>
 
                         <div class="inputContainer">
                             <label for="previewDurationMs">Preview Duration (ms):</label>
-                            <input type="number" is="emby-input" id="previewDurationMs" min="5000" max="120000" step="1000" />
-                            <div class="fieldDescription">How long to show the preview (0 = no limit)</div>
+                            <input type="number" is="emby-input" id="previewDurationMs" min="0" max="120000" step="1000" />
+                            <div class="fieldDescription">How long to show the preview, 0 = no limit (default: 30000)</div>
                         </div>
 
                         <div class="inputContainer">
                             <label for="fadeInDurationMs">Fade In Duration (ms):</label>
                             <input type="number" is="emby-input" id="fadeInDurationMs" min="0" max="2000" step="50" />
-                            <div class="fieldDescription">Animation time when preview appears</div>
+                            <div class="fieldDescription">Animation time when preview appears (default: 300)</div>
                         </div>
 
                         <div class="inputContainer">
                             <label for="fadeOutDurationMs">Fade Out Duration (ms):</label>
                             <input type="number" is="emby-input" id="fadeOutDurationMs" min="0" max="2000" step="50" />
-                            <div class="fieldDescription">Animation time when preview disappears</div>
+                            <div class="fieldDescription">Animation time when preview disappears (default: 200)</div>
+                        </div>
+                    </div>
+
+                    <!-- Display Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Display Settings</h3>
+
+                        <div class="inputContainer">
+                            <label for="previewWidthPercent">Preview Width (%):</label>
+                            <input type="number" is="emby-input" id="previewWidthPercent" min="10" max="100" step="5" />
+                            <div class="fieldDescription">Width of the preview as percentage of viewport (default: 40)</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="previewHeightPercent">Preview Height (%):</label>
+                            <input type="number" is="emby-input" id="previewHeightPercent" min="10" max="100" step="5" />
+                            <div class="fieldDescription">Height of the preview as percentage of viewport (default: 60)</div>
+                        </div>
+
+                        <div class="selectContainer">
+                            <label for="previewPosition">Preview Position:</label>
+                            <select is="emby-select" id="previewPosition">
+                                <option value="center">Center</option>
+                                <option value="top">Top</option>
+                                <option value="bottom">Bottom</option>
+                            </select>
+                            <div class="fieldDescription">Where to position the preview on screen</div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Visual Settings</h3>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableBackgroundDim" />
+                                <span>Enable Background Dimming</span>
+                            </label>
+                            <div class="fieldDescription">Dim the background when showing preview</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="backgroundDimOpacity">Background Dim Opacity:</label>
+                            <input type="number" is="emby-input" id="backgroundDimOpacity" min="0" max="1" step="0.05" />
+                            <div class="fieldDescription">Opacity of background dimming, 0-1 (default: 0.7)</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="previewOpacity">Preview Opacity:</label>
+                            <input type="number" is="emby-input" id="previewOpacity" min="0" max="1" step="0.05" />
+                            <div class="fieldDescription">Opacity of preview video, 0-1 (default: 1.0)</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="showTitle" />
+                                <span>Show Title Overlay</span>
+                            </label>
+                            <div class="fieldDescription">Display the item title on the preview</div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Settings -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Audio Settings</h3>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableAudio" />
+                                <span>Enable Audio</span>
+                            </label>
+                            <div class="fieldDescription">Play audio with trailer previews (can be intrusive)</div>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label for="audioVolume">Audio Volume (%):</label>
+                            <input type="number" is="emby-input" id="audioVolume" min="0" max="100" step="5" />
+                            <div class="fieldDescription">Volume level for trailer audio (default: 30)</div>
+                        </div>
+                    </div>
+
+                    <!-- Platform Support -->
+                    <div class="verticalSection">
+                        <h3 class="sectionTitle">Platform Support</h3>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnWeb" />
+                                <span>Enable on Web</span>
+                            </label>
+                            <div class="fieldDescription">Enable trailer previews on web browsers</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnDesktop" />
+                                <span>Enable on Desktop</span>
+                            </label>
+                            <div class="fieldDescription">Enable trailer previews on desktop app</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnMobile" />
+                                <span>Enable on Mobile</span>
+                            </label>
+                            <div class="fieldDescription">Enable trailer previews on mobile devices</div>
+                        </div>
+
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="enableOnTV" />
+                                <span>Enable on TV</span>
+                            </label>
+                            <div class="fieldDescription">Enable trailer previews on TV clients</div>
                         </div>
                     </div>
 
@@ -81,7 +197,7 @@
         function loadConfiguration() {
             Dashboard.showLoadingMsg();
             ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function(config) {
-                // General - Use defaults if values are undefined
+                // General
                 document.querySelector('#enableTrailerPreview').checked = config.EnableTrailerPreview !== false;
                 document.querySelector('#enableDebugLogging').checked = config.EnableDebugLogging || false;
 
@@ -90,6 +206,27 @@
                 document.querySelector('#previewDurationMs').value = config.PreviewDurationMs || 30000;
                 document.querySelector('#fadeInDurationMs').value = config.FadeInDurationMs || 300;
                 document.querySelector('#fadeOutDurationMs').value = config.FadeOutDurationMs || 200;
+
+                // Display
+                document.querySelector('#previewWidthPercent').value = config.PreviewWidthPercent || 40;
+                document.querySelector('#previewHeightPercent').value = config.PreviewHeightPercent || 60;
+                document.querySelector('#previewPosition').value = config.PreviewPosition || 'center';
+
+                // Visual
+                document.querySelector('#enableBackgroundDim').checked = config.EnableBackgroundDim !== false;
+                document.querySelector('#backgroundDimOpacity').value = config.BackgroundDimOpacity || 0.7;
+                document.querySelector('#previewOpacity').value = config.PreviewOpacity || 1.0;
+                document.querySelector('#showTitle').checked = config.ShowTitle !== false;
+
+                // Audio
+                document.querySelector('#enableAudio').checked = config.EnableAudio || false;
+                document.querySelector('#audioVolume').value = config.AudioVolume || 30;
+
+                // Platform
+                document.querySelector('#enableOnWeb').checked = config.EnableOnWeb !== false;
+                document.querySelector('#enableOnDesktop').checked = config.EnableOnDesktop !== false;
+                document.querySelector('#enableOnMobile').checked = config.EnableOnMobile !== false;
+                document.querySelector('#enableOnTV').checked = config.EnableOnTV !== false;
 
                 Dashboard.hideLoadingMsg();
             }).catch(function(error) {
@@ -111,6 +248,27 @@
                 config.PreviewDurationMs = parseInt(document.querySelector('#previewDurationMs').value) || 30000;
                 config.FadeInDurationMs = parseInt(document.querySelector('#fadeInDurationMs').value) || 300;
                 config.FadeOutDurationMs = parseInt(document.querySelector('#fadeOutDurationMs').value) || 200;
+
+                // Display
+                config.PreviewWidthPercent = parseInt(document.querySelector('#previewWidthPercent').value) || 40;
+                config.PreviewHeightPercent = parseInt(document.querySelector('#previewHeightPercent').value) || 60;
+                config.PreviewPosition = document.querySelector('#previewPosition').value || 'center';
+
+                // Visual
+                config.EnableBackgroundDim = document.querySelector('#enableBackgroundDim').checked;
+                config.BackgroundDimOpacity = parseFloat(document.querySelector('#backgroundDimOpacity').value) || 0.7;
+                config.PreviewOpacity = parseFloat(document.querySelector('#previewOpacity').value) || 1.0;
+                config.ShowTitle = document.querySelector('#showTitle').checked;
+
+                // Audio
+                config.EnableAudio = document.querySelector('#enableAudio').checked;
+                config.AudioVolume = parseInt(document.querySelector('#audioVolume').value) || 30;
+
+                // Platform
+                config.EnableOnWeb = document.querySelector('#enableOnWeb').checked;
+                config.EnableOnDesktop = document.querySelector('#enableOnDesktop').checked;
+                config.EnableOnMobile = document.querySelector('#enableOnMobile').checked;
+                config.EnableOnTV = document.querySelector('#enableOnTV').checked;
 
                 ApiClient.updatePluginConfiguration(TrailerPreviewConfig.pluginUniqueId, config).then(function(result) {
                     Dashboard.processPluginConfigurationUpdateResult(result);
