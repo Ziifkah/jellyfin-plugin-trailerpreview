@@ -88,6 +88,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
             _transformBasePath = basePath;
             _transformVersion = version;
 
+            var cacheVersion = DateTime.UtcNow.Ticks.ToString();
             var transformationPayload = new JObject
             {
                 ["id"] = "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
@@ -96,6 +97,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
                 ["callbackClass"] = GetType().FullName,
                 ["callbackMethod"] = nameof(TransformIndexHtml)
             };
+            _cacheVersion = cacheVersion;
 
             registerMethod.Invoke(null, new object[] { transformationPayload });
 
@@ -111,6 +113,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
 
     private static string _transformBasePath = string.Empty;
     private static string _transformVersion = "2.0.0";
+    private static string _cacheVersion = DateTime.UtcNow.Ticks.ToString();
 
     public static string TransformIndexHtml(dynamic payload)
     {
@@ -126,9 +129,10 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
             string scriptReplace = "<script plugin=\"TrailerPreview\".*?></script>";
             string scriptElement = string.Format(
                 CultureInfo.InvariantCulture,
-                "<script plugin=\"TrailerPreview\" version=\"{1}\" src=\"{0}/TrailerPreview/ClientScript\" defer></script>",
+                "<script plugin=\"TrailerPreview\" version=\"{1}\" src=\"{0}/TrailerPreview/ClientScript?v={2}\" defer></script>",
                 _transformBasePath,
-                _transformVersion);
+                _transformVersion,
+                _cacheVersion);
 
             if (content.Contains(scriptElement, StringComparison.Ordinal))
             {
@@ -166,10 +170,11 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
 
             var basePath = GetBasePath(configurationManager);
             var version = GetType().Assembly.GetName().Version?.ToString() ?? "2.0.0";
+            var cacheVersion = DateTime.UtcNow.Ticks.ToString();
 
             string indexContents = File.ReadAllText(indexFile);
             string scriptReplace = "<script plugin=\"TrailerPreview\".*?></script>";
-            string scriptElement = $"<script plugin=\"TrailerPreview\" version=\"{version}\" src=\"{basePath}/TrailerPreview/ClientScript\" defer></script>";
+            string scriptElement = $"<script plugin=\"TrailerPreview\" version=\"{version}\" src=\"{basePath}/TrailerPreview/ClientScript?v={cacheVersion}\" defer></script>";
 
             if (indexContents.Contains(scriptElement))
             {

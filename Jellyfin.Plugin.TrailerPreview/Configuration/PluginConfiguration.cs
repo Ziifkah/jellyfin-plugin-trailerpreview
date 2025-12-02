@@ -32,6 +32,6 @@ public class PluginConfiguration : BasePluginConfiguration
     // Platform Support
     public bool EnableOnWeb { get; set; } = true;
     public bool EnableOnDesktop { get; set; } = true;
-    public bool EnableOnMobile { get; set; } = true;
+    public bool EnableOnMobile { get; set; } = false; // Disabled by default to avoid mobile app bugs
     public bool EnableOnTV { get; set; } = true;
 }

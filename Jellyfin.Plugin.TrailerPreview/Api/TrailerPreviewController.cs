@@ -146,6 +146,7 @@ public class TrailerPreviewController : ControllerBase
         sb.AppendLine($"    enableOnMobile: {config.EnableOnMobile.ToString().ToLowerInvariant()},");
         sb.AppendLine($"    enableOnTV: {config.EnableOnTV.ToString().ToLowerInvariant()}");
         sb.AppendLine("  };");
+        sb.AppendLine("  console.log('[TrailerPreview] Config loaded:', CONFIG);");
         sb.AppendLine();
 
         // Debug logger
@@ -286,12 +287,12 @@ public class TrailerPreviewController : ControllerBase
         sb.AppendLine("        videoElement = document.createElement('iframe');");
         sb.AppendLine("        // Note: Browsers may block autoplay with audio. YouTube will start muted by default for autoplay.");
         sb.AppendLine("        const muteParam = CONFIG.enableAudio ? '0' : '1';");
-        sb.AppendLine("        videoElement.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=${muteParam}&controls=0&loop=1&playlist=${youtubeId}&playsinline=1&rel=0&modestbranding=1&enablejsapi=1&origin=${window.location.origin}`;");
+        sb.AppendLine("        videoElement.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=${muteParam}&controls=0&loop=1&playlist=${youtubeId}&playsinline=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&vq=hd1080&enablejsapi=1&origin=${window.location.origin}`;");
         sb.AppendLine("        videoElement.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';");
         sb.AppendLine("        videoElement.setAttribute('allowfullscreen', '');");
         sb.AppendLine("        videoElement.setAttribute('referrerpolicy', 'origin');");
         sb.AppendLine("        videoElement.style.cssText = 'width: 100%; height: 100%; border: none;';");
-        sb.AppendLine("        debugLog(`YouTube iframe created with mute=${muteParam}, audio enabled: ${CONFIG.enableAudio}`);");
+        sb.AppendLine("        debugLog(`YouTube iframe created with mute=${muteParam}, audio enabled: ${CONFIG.enableAudio}, quality: hd1080`);");
         sb.AppendLine("      }");
         sb.AppendLine("    } else if (trailer.type === 'local') {");
         sb.AppendLine("      videoElement = document.createElement('video');");
@@ -404,7 +405,11 @@ public class TrailerPreviewController : ControllerBase
         sb.AppendLine("      currentPreview = createPreviewOverlay(data, itemName);");
         sb.AppendLine("      isPreviewShowing = true;");
         sb.AppendLine("      if (CONFIG.previewDurationMs > 0) {");
-        sb.AppendLine("        currentPreviewTimeout = setTimeout(removePreview, CONFIG.previewDurationMs);");
+        sb.AppendLine("        debugLog(`Setting preview timeout for ${CONFIG.previewDurationMs}ms`);");
+        sb.AppendLine("        currentPreviewTimeout = setTimeout(() => {");
+        sb.AppendLine("          debugLog('Preview timeout reached, removing preview');");
+        sb.AppendLine("          removePreview();");
+        sb.AppendLine("        }, CONFIG.previewDurationMs);");
         sb.AppendLine("      }");
         sb.AppendLine("    } catch (error) {");
         sb.AppendLine("      debugLog('Error showing preview:', error);");
