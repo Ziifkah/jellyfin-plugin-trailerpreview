@@ -9,11 +9,11 @@
     "versions": [
       {
         "version": "2.0.0",
-        "changelog": "Complete rewrite based on HoverTrailer architecture. Netflix-style overlay with comprehensive configuration options. Fixed JavaScript decimal formatting issues. Fixed configuration page structure. Fixed all authentication issues (AllowAnonymous on ClientScript and Trailer endpoints). Improved stability and error handling.",
+        "changelog": "Complete rewrite based on HoverTrailer architecture. Netflix-style overlay with comprehensive configuration options. Fixed YouTube Error 153 (youtube-nocookie.com). Fixed video overlap and audio mixing bugs with proper cleanup. Fixed all authentication issues. Improved stability and error handling.",
         "targetAbi": "10.10.0.0",
         "sourceUrl": "https://github.com/Ziifkah/jellyfin-plugin-trailerpreview/releases/download/v2.0.0/jellyfin-plugin-trailerpreview_2.0.0.zip",
-        "checksum": "a710023f29367ce974ba513e2bf5dcc7",
-        "timestamp": "2025-12-02T18:00:00Z"
+        "checksum": "969b56f46dabcb96b6fb3897959f3f8f",
+        "timestamp": "2025-12-02T18:20:00Z"
       },
       {
         "version": "1.0.0",
