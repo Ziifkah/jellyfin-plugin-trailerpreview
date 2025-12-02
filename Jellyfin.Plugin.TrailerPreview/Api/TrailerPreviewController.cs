@@ -31,6 +31,7 @@ public class TrailerPreviewController : ControllerBase
     }
 
     [HttpGet("ClientScript")]
+    [AllowAnonymous]
     [Produces("application/javascript")]
     public ActionResult<string> GetClientScript()
     {
