@@ -187,112 +187,110 @@
                 </form>
             </div>
         </div>
-    </div>
+        <script type="text/javascript">
+            var TrailerPreviewConfig = {
+                pluginUniqueId: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
+            };
 
-    <script type="text/javascript">
-        var TrailerPreviewConfig = {
-            pluginUniqueId: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
-        };
+            function loadConfiguration() {
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function (config) {
+                    // General
+                    document.querySelector('#enableTrailerPreview').checked = config.EnableTrailerPreview !== false;
+                    document.querySelector('#enableDebugLogging').checked = config.EnableDebugLogging || false;
 
-        function loadConfiguration() {
-            Dashboard.showLoadingMsg();
-            ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function(config) {
-                // General
-                document.querySelector('#enableTrailerPreview').checked = config.EnableTrailerPreview !== false;
-                document.querySelector('#enableDebugLogging').checked = config.EnableDebugLogging || false;
+                    // Timing
+                    document.querySelector('#hoverDelayMs').value = config.HoverDelayMs || 800;
+                    document.querySelector('#previewDurationMs').value = config.PreviewDurationMs || 30000;
+                    document.querySelector('#fadeInDurationMs').value = config.FadeInDurationMs || 300;
+                    document.querySelector('#fadeOutDurationMs').value = config.FadeOutDurationMs || 200;
 
-                // Timing
-                document.querySelector('#hoverDelayMs').value = config.HoverDelayMs || 800;
-                document.querySelector('#previewDurationMs').value = config.PreviewDurationMs || 30000;
-                document.querySelector('#fadeInDurationMs').value = config.FadeInDurationMs || 300;
-                document.querySelector('#fadeOutDurationMs').value = config.FadeOutDurationMs || 200;
+                    // Display
+                    document.querySelector('#previewWidthPercent').value = config.PreviewWidthPercent || 40;
+                    document.querySelector('#previewHeightPercent').value = config.PreviewHeightPercent || 60;
+                    document.querySelector('#previewPosition').value = config.PreviewPosition || 'center';
 
-                // Display
-                document.querySelector('#previewWidthPercent').value = config.PreviewWidthPercent || 40;
-                document.querySelector('#previewHeightPercent').value = config.PreviewHeightPercent || 60;
-                document.querySelector('#previewPosition').value = config.PreviewPosition || 'center';
+                    // Visual
+                    document.querySelector('#enableBackgroundDim').checked = config.EnableBackgroundDim !== false;
+                    document.querySelector('#backgroundDimOpacity').value = config.BackgroundDimOpacity || 0.7;
+                    document.querySelector('#previewOpacity').value = config.PreviewOpacity || 1.0;
+                    document.querySelector('#showTitle').checked = config.ShowTitle !== false;
 
-                // Visual
-                document.querySelector('#enableBackgroundDim').checked = config.EnableBackgroundDim !== false;
-                document.querySelector('#backgroundDimOpacity').value = config.BackgroundDimOpacity || 0.7;
-                document.querySelector('#previewOpacity').value = config.PreviewOpacity || 1.0;
-                document.querySelector('#showTitle').checked = config.ShowTitle !== false;
+                    // Audio
+                    document.querySelector('#enableAudio').checked = config.EnableAudio || false;
+                    document.querySelector('#audioVolume').value = config.AudioVolume || 30;
 
-                // Audio
-                document.querySelector('#enableAudio').checked = config.EnableAudio || false;
-                document.querySelector('#audioVolume').value = config.AudioVolume || 30;
+                    // Platform
+                    document.querySelector('#enableOnWeb').checked = config.EnableOnWeb !== false;
+                    document.querySelector('#enableOnDesktop').checked = config.EnableOnDesktop !== false;
+                    document.querySelector('#enableOnMobile').checked = config.EnableOnMobile !== false;
+                    document.querySelector('#enableOnTV').checked = config.EnableOnTV !== false;
 
-                // Platform
-                document.querySelector('#enableOnWeb').checked = config.EnableOnWeb !== false;
-                document.querySelector('#enableOnDesktop').checked = config.EnableOnDesktop !== false;
-                document.querySelector('#enableOnMobile').checked = config.EnableOnMobile !== false;
-                document.querySelector('#enableOnTV').checked = config.EnableOnTV !== false;
-
-                Dashboard.hideLoadingMsg();
-            }).catch(function(error) {
-                console.error('Error loading configuration:', error);
-                Dashboard.hideLoadingMsg();
-                Dashboard.alert('Error loading configuration: ' + error.message);
-            });
-        }
-
-        function saveConfiguration() {
-            Dashboard.showLoadingMsg();
-            ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function(config) {
-                // General
-                config.EnableTrailerPreview = document.querySelector('#enableTrailerPreview').checked;
-                config.EnableDebugLogging = document.querySelector('#enableDebugLogging').checked;
-
-                // Timing
-                config.HoverDelayMs = parseInt(document.querySelector('#hoverDelayMs').value) || 800;
-                config.PreviewDurationMs = parseInt(document.querySelector('#previewDurationMs').value) || 30000;
-                config.FadeInDurationMs = parseInt(document.querySelector('#fadeInDurationMs').value) || 300;
-                config.FadeOutDurationMs = parseInt(document.querySelector('#fadeOutDurationMs').value) || 200;
-
-                // Display
-                config.PreviewWidthPercent = parseInt(document.querySelector('#previewWidthPercent').value) || 40;
-                config.PreviewHeightPercent = parseInt(document.querySelector('#previewHeightPercent').value) || 60;
-                config.PreviewPosition = document.querySelector('#previewPosition').value || 'center';
-
-                // Visual
-                config.EnableBackgroundDim = document.querySelector('#enableBackgroundDim').checked;
-                config.BackgroundDimOpacity = parseFloat(document.querySelector('#backgroundDimOpacity').value) || 0.7;
-                config.PreviewOpacity = parseFloat(document.querySelector('#previewOpacity').value) || 1.0;
-                config.ShowTitle = document.querySelector('#showTitle').checked;
-
-                // Audio
-                config.EnableAudio = document.querySelector('#enableAudio').checked;
-                config.AudioVolume = parseInt(document.querySelector('#audioVolume').value) || 30;
-
-                // Platform
-                config.EnableOnWeb = document.querySelector('#enableOnWeb').checked;
-                config.EnableOnDesktop = document.querySelector('#enableOnDesktop').checked;
-                config.EnableOnMobile = document.querySelector('#enableOnMobile').checked;
-                config.EnableOnTV = document.querySelector('#enableOnTV').checked;
-
-                ApiClient.updatePluginConfiguration(TrailerPreviewConfig.pluginUniqueId, config).then(function(result) {
-                    Dashboard.processPluginConfigurationUpdateResult(result);
-                }).catch(function(error) {
-                    console.error('Error saving configuration:', error);
                     Dashboard.hideLoadingMsg();
-                    Dashboard.alert('Error saving configuration: ' + error.message);
+                }).catch(function (error) {
+                    console.error('Error loading configuration:', error);
+                    Dashboard.hideLoadingMsg();
                 });
-            }).catch(function(error) {
-                console.error('Error loading configuration for save:', error);
-                Dashboard.hideLoadingMsg();
-                Dashboard.alert('Error loading configuration: ' + error.message);
+            }
+
+            function saveConfiguration() {
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(TrailerPreviewConfig.pluginUniqueId).then(function (config) {
+                    // General
+                    config.EnableTrailerPreview = document.querySelector('#enableTrailerPreview').checked;
+                    config.EnableDebugLogging = document.querySelector('#enableDebugLogging').checked;
+
+                    // Timing
+                    config.HoverDelayMs = parseInt(document.querySelector('#hoverDelayMs').value) || 800;
+                    config.PreviewDurationMs = parseInt(document.querySelector('#previewDurationMs').value) || 30000;
+                    config.FadeInDurationMs = parseInt(document.querySelector('#fadeInDurationMs').value) || 300;
+                    config.FadeOutDurationMs = parseInt(document.querySelector('#fadeOutDurationMs').value) || 200;
+
+                    // Display
+                    config.PreviewWidthPercent = parseInt(document.querySelector('#previewWidthPercent').value) || 40;
+                    config.PreviewHeightPercent = parseInt(document.querySelector('#previewHeightPercent').value) || 60;
+                    config.PreviewPosition = document.querySelector('#previewPosition').value || 'center';
+
+                    // Visual
+                    config.EnableBackgroundDim = document.querySelector('#enableBackgroundDim').checked;
+                    config.BackgroundDimOpacity = parseFloat(document.querySelector('#backgroundDimOpacity').value) || 0.7;
+                    config.PreviewOpacity = parseFloat(document.querySelector('#previewOpacity').value) || 1.0;
+                    config.ShowTitle = document.querySelector('#showTitle').checked;
+
+                    // Audio
+                    config.EnableAudio = document.querySelector('#enableAudio').checked;
+                    config.AudioVolume = parseInt(document.querySelector('#audioVolume').value) || 30;
+
+                    // Platform
+                    config.EnableOnWeb = document.querySelector('#enableOnWeb').checked;
+                    config.EnableOnDesktop = document.querySelector('#enableOnDesktop').checked;
+                    config.EnableOnMobile = document.querySelector('#enableOnMobile').checked;
+                    config.EnableOnTV = document.querySelector('#enableOnTV').checked;
+
+                    ApiClient.updatePluginConfiguration(TrailerPreviewConfig.pluginUniqueId, config).then(function (result) {
+                        Dashboard.processPluginConfigurationUpdateResult(result);
+                    }).catch(function (error) {
+                        console.error('Error saving configuration:', error);
+                        Dashboard.hideLoadingMsg();
+                        Dashboard.alert('Error saving configuration: ' + error.message);
+                    });
+                }).catch(function (error) {
+                    console.error('Error loading configuration for save:', error);
+                    Dashboard.hideLoadingMsg();
+                    Dashboard.alert('Error loading configuration: ' + error.message);
+                });
+            }
+
+            document.querySelector("#TrailerPreviewConfigPage").addEventListener("pageshow", () => {
+                loadConfiguration();
             });
-        }
 
-        document.querySelector('#TrailerPreviewConfigPage').addEventListener('pageshow', function() {
-            loadConfiguration();
-        });
-
-        document.querySelector('#TrailerPreviewConfigForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            saveConfiguration();
-            return false;
-        });
-    </script>
+            document.querySelector("#TrailerPreviewConfigForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+                saveConfiguration();
+                return false;
+            });
+        </script>
+    </div>
 </body>
 </html>
